@@ -20,6 +20,9 @@ if Code.ensure_loaded?(:hackney) do
       opts = http_opts ++ opts
 
       case :hackney.request(method, url, headers, body, opts) do
+        {:ok, status, headers} ->
+          {:ok, %{status_code: status, headers: headers, body: body}}
+
         {:ok, status, headers, body} ->
           {:ok, %{status_code: status, headers: headers, body: body}}
 
